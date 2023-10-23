@@ -1,6 +1,7 @@
 package startTests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,41 +12,50 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginTests {
+public class RegistrationTests {
 
     WebDriver driver;
+   // RandomUtils randomUtils = new RandomUtils();
 
     @BeforeClass
-    public void preConditions(){
+    public void preConditions() {
         driver = new ChromeDriver();
         driver.navigate().to("https://telranedu.web.app/home");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
     }
 
-    @Test
-    public void loginPositive() throws InterruptedException {
+
+    public void registrationPositive()  {
+
+        String email = "ggfhh@mm.co";
+                //randomUtils.generateEmail(7);
+        System.out.println(email);
+
 
         WebElement btnLoginHeader = driver.findElement(By.xpath("//a[contains(@href, '/login')]"));
         btnLoginHeader.click();
 
 
-         WebElement inputEmail = driver.findElement(By.xpath("//input[@name ='email']"));
-         inputEmail.click();
-         inputEmail.clear();
-         inputEmail.sendKeys("krasleo@gmail.com");
+        WebElement inputEmail = driver.findElement(By.xpath("//input[@name ='email']"));
+        inputEmail.click();
+        inputEmail.clear();
+        inputEmail.sendKeys(email);
 
 
-         WebElement inputPassword = driver.findElement(By.xpath("//input[@name ='password']"));
-         inputPassword.click();
-         inputPassword.clear();
-         inputPassword.sendKeys("Cristiano7777$!");
+        WebElement inputPassword = driver.findElement(By.xpath("//input[@name ='password']"));
+        inputPassword.click();
+        inputPassword.clear();
+        inputPassword.sendKeys("Cristiano7777$!");
 
 
-         WebElement btnLogin = driver.findElement(By.xpath("//button[@name ='login']"));
-         btnLogin.click();
+//        WebElement btnRegistration = driver.findElement(By.xpath("//button[@name='registration']"));
+//        btnRegistration.click();
+// using JAVASCRIPT EXECUTOR
+        JavascriptExecutor je = (JavascriptExecutor) driver;
+        je.executeScript("document.querySelector('[name=\"registration\"]').click();\n");
 
-        Thread.sleep(15000);
 
 
         WebElement confirmationElement= driver.findElement(By.xpath("//a[@href='/contacts']"));
@@ -61,6 +71,5 @@ public class LoginTests {
     public void postConditions(){
         driver.quit();
     }
-
 
 }
