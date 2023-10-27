@@ -1,21 +1,11 @@
 package dto;
 
 public class UserDTOWith {
-    String name;
-    String lastName;
+
     String email;
     String password;
 
     //with empty default constructor
-
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
 
     public String getEmail() {
         return email;
@@ -28,19 +18,10 @@ public class UserDTOWith {
     //=============================================
 
 
-//    public void setName(String name) {setter
-//        this.name = name;
+//    public void setName(String email) {setter
+//        this.email = email;
 //    }
 
-    public UserDTOWith withName(String name){//like setter
-        this.name = name;
-        return this;
-    }
-
-    public UserDTOWith withLastName(String lastName){
-        this.lastName = lastName;
-        return this;
-    }
 
     public UserDTOWith withEmail(String email){
         this.email = email;

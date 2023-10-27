@@ -1,6 +1,7 @@
 package manager;
 
 import dto.UserDTO;
+import dto.UserDTOLombok;
 import dto.UserDTOWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,10 +27,10 @@ public class UserHelper extends BaseHelper{
         typeTextBase(inputEmailLoginForm, userDTO.getEmail());
         typeTextBase(inputPasswordLoginForm, userDTO.getPassword());
         clickBase(btnLoginForm);
-    }    public void login(UserDTOWith userDTO) {
+    }    public void login(UserDTOWith userDTOWith) {
         clickBase(btnLoginHeaderMenu);
-        typeTextBase(inputEmailLoginForm, userDTO.getEmail());
-        typeTextBase(inputPasswordLoginForm, userDTO.getPassword());
+        typeTextBase(inputEmailLoginForm, userDTOWith.getEmail());
+        typeTextBase(inputPasswordLoginForm, userDTOWith.getPassword());
         clickBase(btnLoginForm);
     }
 
@@ -38,5 +39,12 @@ public class UserHelper extends BaseHelper{
     public boolean validateSuccessConfirmationElementAfterLogin() {
         return isTextEqual(successLoginConfirmationElement , "CONTACTS");
 
+    }
+
+    public void loginUserDTOLombok(UserDTOLombok user) {
+        clickBase(btnLoginHeaderMenu);
+        typeTextBase(inputEmailLoginForm, user.getEmail());
+        typeTextBase(inputPasswordLoginForm, user.getPassword());
+        clickBase(btnLoginForm);
     }
 }

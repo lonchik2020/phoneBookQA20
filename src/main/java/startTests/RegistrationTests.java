@@ -29,7 +29,7 @@ public class RegistrationTests {
 
     public void registrationPositive()  {
 
-        String email = "ggfhh@mm.co";
+        String email = "";
                 //randomUtils.generateEmail(7);
         System.out.println(email);
 
@@ -57,16 +57,13 @@ public class RegistrationTests {
         je.executeScript("document.querySelector('[name=\"registration\"]').click();\n");
 
 
-
         WebElement confirmationElement= driver.findElement(By.xpath("//a[@href='/contacts']"));
         String actualResult = confirmationElement.getText().trim().toUpperCase();
         String expectedResult = "CONTACTS".toUpperCase();
 
         Assert.assertEquals(actualResult,expectedResult);
 
-
     }
-
     @AfterClass
     public void postConditions(){
         driver.quit();
