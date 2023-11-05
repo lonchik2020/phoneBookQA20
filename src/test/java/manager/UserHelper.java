@@ -6,7 +6,8 @@ import dto.UserDTOWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class UserHelper extends BaseHelper{
+public class UserHelper extends BaseHelper {
+
 
     public UserHelper(WebDriver driver) {
         super(driver);
@@ -20,14 +21,19 @@ public class UserHelper extends BaseHelper{
 
     By btnLoginForm = By.xpath("//button[@name ='login']");
 
+    String btnRegistration = "document.querySelector('[name=\"registration\"]').click();";
+
     By successLoginConfirmationElement = By.xpath("//a[@href='/contacts']");
+
 
     public void login(UserDTO userDTO) {
         clickBase(btnLoginHeaderMenu);
         typeTextBase(inputEmailLoginForm, userDTO.getEmail());
         typeTextBase(inputPasswordLoginForm, userDTO.getPassword());
         clickBase(btnLoginForm);
-    }    public void login(UserDTOWith userDTOWith) {
+    }
+
+    public void login(UserDTOWith userDTOWith) {
         clickBase(btnLoginHeaderMenu);
         typeTextBase(inputEmailLoginForm, userDTOWith.getEmail());
         typeTextBase(inputPasswordLoginForm, userDTOWith.getPassword());
@@ -35,9 +41,8 @@ public class UserHelper extends BaseHelper{
     }
 
 
-
     public boolean validateSuccessConfirmationElementAfterLogin() {
-        return isTextEqual(successLoginConfirmationElement , "CONTACTS");
+        return isTextEqual(successLoginConfirmationElement, "CONTACTS");
 
     }
 
@@ -47,4 +52,36 @@ public class UserHelper extends BaseHelper{
         typeTextBase(inputPasswordLoginForm, user.getPassword());
         clickBase(btnLoginForm);
     }
+
+    public void registrationUserDTOLombok(UserDTOLombok user) {
+        clickBase(btnLoginHeaderMenu);
+        typeTextBase(inputEmailLoginForm, user.getEmail());
+        typeTextBase(inputPasswordLoginForm, user.getPassword());
+        jsClickBase(btnRegistration);
+    }
+
+
+    public boolean validateMessageAlertWrongEmailCorrectPassword() {
+        String expectedResult = "Wrong email or password".toUpperCase();
+        String actualResult = getTextAlert();
+        return isTextEqualGetTwoStrings(expectedResult, actualResult);
+
+    }
+
+    public boolean validateMessageAlertCorrectEmailWrongPasswordReg() {
+        String expectedResult = "WRONG EMAIL OR PASSWORD FORMAT";
+        String actualResult = getTextAlert();
+        if(actualResult.contains(expectedResult)){
+        return true; // isTextEqualGetTwoStrings(expectedResult, actualResult);
+    }else{
+            System.out.println("expected result: " + expectedResult + "actual result: " + actualResult);
+            return false;
+        }
+
+
+    }
 }
+
+
+
+

@@ -1,18 +1,25 @@
 package tests;
 
 import manager.ApplicationManager;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import manager.TestNGListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.*;
 
+
+@Listeners(TestNGListener.class)
 public class BaseTest {//to create here object of applicationManager
+
+    Logger logger = LoggerFactory.getLogger(BaseTest.class);
+
     static ApplicationManager app = new ApplicationManager();
 
-    @BeforeSuite
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
         app.init();
     }
 
-    @AfterSuite
+    @AfterMethod(alwaysRun = true)
     public void stop(){
         app.tearDown();
     }

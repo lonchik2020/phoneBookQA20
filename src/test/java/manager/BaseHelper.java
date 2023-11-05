@@ -1,12 +1,16 @@
 package manager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class BaseHelper {
+
+    Logger logger = LoggerFactory.getLogger(BaseHelper.class);
 
     WebDriver driver;
 
@@ -20,6 +24,7 @@ public class BaseHelper {
     }
 
     private List<WebElement> findElementsBase(By locator){
+        logger.info("search element by locator - " + locator);
         System.out.println(locator);
         return driver.findElements(locator);
     }
@@ -28,6 +33,11 @@ public class BaseHelper {
         WebElement el = findElementBase(locator);
         el.click();
     }
+
+//    public void clickByXY(By locator, int x , int y){
+//        Rectangle rectangle = findElementBase(locator).getRect();
+//
+//    }
 
     public String getTextBase(By locator){
         WebElement el = findElementBase(locator);
@@ -44,7 +54,11 @@ public class BaseHelper {
     public boolean isTextEqual(By locator, String expectedResult){
         String actualResult = getTextBase(locator);
         expectedResult = expectedResult.toUpperCase();
+        return isTextEqualGetTwoStrings(expectedResult, actualResult);
 
+    }
+
+    public boolean isTextEqualGetTwoStrings(String expectedResult, String actualResult){
         if(expectedResult.equals(actualResult)){
             return true;
         }else{
@@ -53,4 +67,18 @@ public class BaseHelper {
         }
 
     }
+
+    public String getTextAlert(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        return alert.getText().toUpperCase().trim();
+    }
+
+    public void jsClickBase(String locator){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript(locator);
+    }
+
+
+
 }
