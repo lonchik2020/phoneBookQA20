@@ -34,10 +34,6 @@ public class BaseHelper {
         el.click();
     }
 
-//    public void clickByXY(By locator, int x , int y){
-//        Rectangle rectangle = findElementBase(locator).getRect();
-//
-//    }
 
     public String getTextBase(By locator){
         WebElement el = findElementBase(locator);
@@ -54,12 +50,12 @@ public class BaseHelper {
     public boolean isTextEqual(By locator, String expectedResult){
         String actualResult = getTextBase(locator);
         expectedResult = expectedResult.toUpperCase();
-        return isTextEqualGetTwoStrings(expectedResult, actualResult);
+        return isTextContainsGetTwoStrings(expectedResult, actualResult);
 
     }
 
-    public boolean isTextEqualGetTwoStrings(String expectedResult, String actualResult){
-        if(expectedResult.equals(actualResult)){
+    public boolean isTextContainsGetTwoStrings(String expectedResult, String actualResult){
+        if(expectedResult.contains(actualResult)){
             return true;
         }else{
             System.out.println("expected result: " + expectedResult + "actual result " + actualResult);

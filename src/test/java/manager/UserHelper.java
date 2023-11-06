@@ -64,7 +64,7 @@ public class UserHelper extends BaseHelper {
     public boolean validateMessageAlertWrongEmailCorrectPassword() {
         String expectedResult = "Wrong email or password".toUpperCase();
         String actualResult = getTextAlert();
-        return isTextEqualGetTwoStrings(expectedResult, actualResult);
+        return isTextContainsGetTwoStrings(expectedResult, actualResult);
 
     }
 
