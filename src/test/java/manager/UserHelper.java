@@ -26,15 +26,21 @@ public class UserHelper extends BaseHelper {
     By successLoginConfirmationElement = By.xpath("//a[@href='/contacts']");
 
 
-    public void login(UserDTO userDTO) {
+    By btnLogOut = By.xpath("//button[text()='Sign Out']");
+
+
+    public void openLoginPage(){
         clickBase(btnLoginHeaderMenu);
+    }
+
+
+    public void login(UserDTO userDTO) {
         typeTextBase(inputEmailLoginForm, userDTO.getEmail());
         typeTextBase(inputPasswordLoginForm, userDTO.getPassword());
         clickBase(btnLoginForm);
     }
 
     public void login(UserDTOWith userDTOWith) {
-        clickBase(btnLoginHeaderMenu);
         typeTextBase(inputEmailLoginForm, userDTOWith.getEmail());
         typeTextBase(inputPasswordLoginForm, userDTOWith.getPassword());
         clickBase(btnLoginForm);
@@ -47,7 +53,6 @@ public class UserHelper extends BaseHelper {
     }
 
     public void loginUserDTOLombok(UserDTOLombok user) {
-        clickBase(btnLoginHeaderMenu);
         typeTextBase(inputEmailLoginForm, user.getEmail());
         typeTextBase(inputPasswordLoginForm, user.getPassword());
         clickBase(btnLoginForm);
@@ -77,11 +82,11 @@ public class UserHelper extends BaseHelper {
             System.out.println("expected result: " + expectedResult + "actual result: " + actualResult);
             return false;
         }
+    }
 
 
+    public void logout() {
+        clickBase(btnLogOut);
     }
 }
-
-
-
 

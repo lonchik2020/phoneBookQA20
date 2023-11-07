@@ -17,12 +17,12 @@ public class BaseTest {//to create here object of applicationManager
 
     static ApplicationManager app = new ApplicationManager();
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeSuite(alwaysRun = true)
     public void setUp(){
         app.init();
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void stop(){
         app.tearDown();
     }
@@ -36,7 +36,7 @@ public class BaseTest {//to create here object of applicationManager
     }
 
 
-    @BeforeMethod(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void afterEachMethod(Method method) {
         logger.info("stopped method: " + method.getName());
         logger.info("stopped method with params: " + Arrays.toString(method.getParameters()));

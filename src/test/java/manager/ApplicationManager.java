@@ -34,4 +34,8 @@ public class ApplicationManager {
     public void tearDown(){driver.quit();
         logger.info("Stop testing --> " + LocalDateTime.now());
     }
+
+    public void navigateToMainPage(){
+        driver.navigate().to("https://telranedu.web.app/home");
+    }
 }

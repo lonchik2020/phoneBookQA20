@@ -4,7 +4,9 @@ import dto.UserDTO;
 import dto.UserDTOLombok;
 import dto.UserDTOWith;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
@@ -13,23 +15,51 @@ public class LoginTests extends BaseTest{
 
     private long timeStart, timeStop;
 
-//    @BeforeClass
-//    public void preconditionsBeforeClass(){
-//
-//    }
+    boolean flagIsAlertPresent = false;
+    boolean flagIsUserLogin = false;
+
+    @BeforeClass
+    public void preconditionsBeforeClass(){
+        //refresh//go to main page//click btn login
+        app.navigateToMainPage();
+        app.getUserHelper().refresh();
+        app.getUserHelper().openLoginPage();
+    }
+
+    @BeforeMethod
+    public void preconditionsBeforeMethod(){
+        if(flagIsAlertPresent){
+            //app.getUserHelper().refresh();
+            flagIsAlertPresent = false;
+            app.getUserHelper().clickAcceptAlert();
+
+        }
+        if(flagIsUserLogin){
+            flagIsUserLogin = false;
+            app.getUserHelper().logout();
+
+        }
+        app.getUserHelper().refresh();
+        //login
+        //sign out
+        //alert
+    }
+
 
     @Test
     public void positiveLoginUserDTO(){
         //create user for test
         UserDTO userDTO = new UserDTO("krasleo@gmail.com", "Cristiano7777$!");
         logger.info(String
-                .format("in the next function: open login page, fill email input with email: %s and with the password: %s and click on button login",
+                .format("in the next function: fill email input with email: %s and with the password: %s and click on button login",
                         userDTO.getEmail(), userDTO.getPassword()));
-        logger.info("Test date --> " + userDTO.toString());
+        //logger.info("Test date --> " + userDTO.toString());
         //to put the user inside the login method
         app.getUserHelper().login(userDTO);
-        //to make validation ( returns true or false)
         logger.info("validation by assertTrue, that contacts link which displays on the menu");
+
+        flagIsUserLogin = true;
+        //to make validation ( returns true or false)
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
@@ -42,6 +72,8 @@ public class LoginTests extends BaseTest{
         logger.info("Test date --> " + userDTOWith.toString());
         //to put the user inside the login method
         app.getUserHelper().login(userDTOWith);
+
+        flagIsUserLogin = true;
         //to make validation ( returns true or false)
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
@@ -61,6 +93,8 @@ public class LoginTests extends BaseTest{
 
         //to put the user inside the login method
         app.getUserHelper().loginUserDTOLombok(user);
+
+        flagIsUserLogin = true;
         //to make validation ( returns true or false)
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
         //timeStop = System.currentTimeMillis();
@@ -78,6 +112,7 @@ public class LoginTests extends BaseTest{
         logger.info("Test date --> " + user.toString());
 
         app.getUserHelper().loginUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailCorrectPassword());//Wrong email or password
 
     }
@@ -92,6 +127,7 @@ public class LoginTests extends BaseTest{
         logger.info("Test date --> " + user.toString());
 
         app.getUserHelper().loginUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailCorrectPassword());//Wrong email or password
 
     }
@@ -105,6 +141,7 @@ public class LoginTests extends BaseTest{
 
         logger.info("Test date --> " + user.toString());
         app.getUserHelper().loginUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailCorrectPassword());//Wrong email or password
 
     }
@@ -116,6 +153,7 @@ public class LoginTests extends BaseTest{
                 .password("Cristiano7777$!")
                 .build();
         app.getUserHelper().loginUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailCorrectPassword());//Wrong email or password
     }
 
@@ -126,6 +164,7 @@ public class LoginTests extends BaseTest{
                 .password("Cristianoreal$!")
                 .build();
         app.getUserHelper().loginUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailCorrectPassword());//Wrong email or password
     }
 
@@ -136,6 +175,7 @@ public class LoginTests extends BaseTest{
                 .password("12345678$!")
                 .build();
         app.getUserHelper().loginUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailCorrectPassword());//Wrong email or password
     }
 

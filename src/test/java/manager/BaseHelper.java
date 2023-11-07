@@ -70,9 +70,22 @@ public class BaseHelper {
         return alert.getText().toUpperCase().trim();
     }
 
+
+    public void clickAcceptAlert(){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+
     public void jsClickBase(String locator){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript(locator);
+    }
+
+    public void refresh(){
+        driver.navigate().refresh();
     }
 
 
