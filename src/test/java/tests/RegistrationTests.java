@@ -3,10 +3,26 @@ package tests;
 
 import dto.UserDTOLombok;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utils.RandomUtils;
 
 public class RegistrationTests extends BaseTest{
+
+    @BeforeClass
+    public void preconditionsBeforeClass(){
+        if(app.isPageUrHome()){
+            app.getUserHelper().openLoginPage();
+        }
+    }
+
+    @AfterMethod
+    public void preconditionsBeforeMethod(){
+        preconditionsForLoginAndRegTests();
+
+    }
+
     @Test
     public void positiveRegistration(){
         RandomUtils randomUtils = new RandomUtils();
@@ -17,6 +33,7 @@ public class RegistrationTests extends BaseTest{
                 .password("Cristiano7777$!")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);
+        flagIsUserLogin = true;
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
@@ -30,6 +47,7 @@ public class RegistrationTests extends BaseTest{
                 .password("Cristiano77777")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertCorrectEmailWrongPasswordReg());
 
 
@@ -44,6 +62,7 @@ public class RegistrationTests extends BaseTest{
                 .password("112233477#")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertCorrectEmailWrongPasswordReg());
 
     }
@@ -57,6 +76,7 @@ public class RegistrationTests extends BaseTest{
                 .password("abcdefghijk#")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);
+        flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertCorrectEmailWrongPasswordReg());
 
     }

@@ -55,7 +55,7 @@ public class BaseHelper {
     }
 
     public boolean isTextContainsGetTwoStrings(String expectedResult, String actualResult){
-        if(expectedResult.contains(actualResult)){
+        if(actualResult.contains(expectedResult)){
             return true;
         }else{
             System.out.println("expected result: " + expectedResult + "actual result " + actualResult);

@@ -1,5 +1,6 @@
 package tests;
 
+import dto.UserDTOLombok;
 import manager.ApplicationManager;
 import manager.TestNGListener;
 import org.slf4j.Logger;
@@ -13,16 +14,27 @@ import java.util.Arrays;
 @Listeners(TestNGListener.class)
 public class BaseTest {//to create here object of applicationManager
 
+    boolean flagIsAlertPresent = false;
+    boolean flagIsUserLogin = false;
+
+
     Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     static ApplicationManager app = new ApplicationManager();
 
-    @BeforeSuite(alwaysRun = true)
+
+    UserDTOLombok user = UserDTOLombok.builder()
+            .email("krasleo@gmail.com")
+            .password("Cristiano7777$!")
+            .build();
+
+
+    @BeforeSuite
     public void setUp(){
         app.init();
     }
 
-    @AfterSuite(alwaysRun = true)
+    @AfterSuite//(alwaysRun = true)
     public void stop(){
         app.tearDown();
     }
@@ -40,6 +52,20 @@ public class BaseTest {//to create here object of applicationManager
     public void afterEachMethod(Method method) {
         logger.info("stopped method: " + method.getName());
         logger.info("stopped method with params: " + Arrays.toString(method.getParameters()));
+    }
+
+
+    public void preconditionsForLoginAndRegTests() {
+        if (flagIsAlertPresent) {
+            flagIsAlertPresent = false;
+            app.getUserHelper().clickAcceptAlert();
+
+        }
+        if (flagIsUserLogin) {
+            flagIsUserLogin = false;
+            app.getUserHelper().logout();
+
+        }
     }
 
 }

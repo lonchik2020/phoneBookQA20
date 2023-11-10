@@ -170,9 +170,7 @@ public class WDListener extends AbstractWebDriverEventListener {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("got an exception for adding screenshot to the folder" + e.getMessage());
-
         }
-
     }
 
     @Override

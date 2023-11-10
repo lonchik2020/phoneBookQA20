@@ -19,23 +19,31 @@ public class ApplicationManager {
     public void init(){
         driver = new EventFiringWebDriver(new ChromeDriver());
         driver.navigate().to("https://telranedu.web.app/home");
+        logger.info("navigated to the url: https://telranedu.web.app/home Start testing --> " + LocalDateTime.now());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.register(new WDListener());
 
         userHelper = new UserHelper(driver);//2
-        logger.info("navigated to the url: https://telranedu.web.app/home Start testing --> " + LocalDateTime.now());
+
     }
 
      public UserHelper getUserHelper() {//3
          return userHelper;
     }
 
-    public void tearDown(){driver.quit();
+    public void tearDown(){
+        driver.quit();
         logger.info("Stop testing --> " + LocalDateTime.now());
     }
 
     public void navigateToMainPage(){
         driver.navigate().to("https://telranedu.web.app/home");
+    }
+
+    public boolean isPageUrHome(){
+        String url = driver.getCurrentUrl();
+        System.out.println(url + "================== url");
+        return url.equals("https://telranedu.web.app/home Start testing");
     }
 }
