@@ -29,12 +29,12 @@ public class BaseTest {//to create here object of applicationManager
             .build();
 
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void setUp(){
         app.init();
     }
 
-    @AfterSuite//(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void stop(){
         app.tearDown();
     }
