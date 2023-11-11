@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 public class LoginTests extends BaseTest{
 
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void preconditionsBeforeClass(){
         //refresh//go to main page//click btn login
         app.navigateToMainPage();
@@ -21,7 +21,7 @@ public class LoginTests extends BaseTest{
         app.getUserHelper().openLoginPage();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void preconditionsBeforeMethod(){
         preconditionsForLoginAndRegTests();
     }
@@ -34,7 +34,7 @@ public class LoginTests extends BaseTest{
             .withPassword("Cristiano7777$!");
 
 
-    @Test
+    @Test(groups={"smoke"})
     public void positiveLoginUserDTO(){
         logger.info("Test date --> " + userDTO.toString());
         logger.info(String
@@ -56,7 +56,7 @@ public class LoginTests extends BaseTest{
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
-    @Test
+    @Test(groups={"regression"})
     public void positiveLoginUserDTOLombok(Method method){
       long timeStart, timeStop;
 
@@ -77,7 +77,7 @@ public class LoginTests extends BaseTest{
 
     }
 
-    @Test
+    @Test(groups={"smoke"})
     public void negativeLoginTest_WrongEmail_WO_dot(){
         UserDTOLombok user = UserDTOLombok.builder()
                 .email("krasleo@gmailcom")
