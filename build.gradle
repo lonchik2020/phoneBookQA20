@@ -50,6 +50,10 @@ task shortTests(type:Test){
         if(groups != null){
             includeGroups groups
         }
+
+        if(project.hasProperty('taget')) {
+            systemProperty 'target', "${target}"
+        }
     }
 
 }

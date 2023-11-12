@@ -1,5 +1,6 @@
 package tests;
 
+import data.DataProviderLogin;
 import dto.UserDTO;
 import dto.UserDTOLombok;
 import dto.UserDTOWith;
@@ -56,20 +57,20 @@ public class LoginTests extends BaseTest{
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
-    @Test(groups={"regression"})
-    public void positiveLoginUserDTOLombok(Method method){
+    @Test(groups={"regression"}, dataProvider = "positiveDataLogin", dataProviderClass = DataProviderLogin.class)
+    public void positiveLoginUserDTOLombok(Method method, UserDTOLombok userDP){
       long timeStart, timeStop;
 
-        UserDTOLombok user = UserDTOLombok.builder()
-                .email("krasleo@gmail.com")
-                .password("Cristiano7777$!")
-                .build();
+//        UserDTOLombok user = UserDTOLombok.builder()
+//                .email("krasleo@gmail.com")
+//                .password("Cristiano7777$!")
+//                .build();
 
         timeStart = System.currentTimeMillis();
         logger.info("Start test -->  " + method.getName());
-        logger.info("Test date --> " + user.toString());
+        logger.info("Test date --> " + userDP.toString());
 
-        app.getUserHelper().loginUserDTOLombok(user);
+        app.getUserHelper().loginUserDTOLombok(userDP);
         flagIsUserLogin = true;
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
         timeStop = System.currentTimeMillis();
@@ -91,21 +92,21 @@ public class LoginTests extends BaseTest{
 
     }
 
-    @Test
-    public void negativeLoginTest_wrongPassword() {
-        UserDTOLombok user = UserDTOLombok.builder()
-                .email("krasleo@gmail.com")
-                .password("Cristian7777$!")
-                .build();
+    @Test(dataProvider = "negativePasswordDataLogin", dataProviderClass = DataProviderLogin.class)
+    public void negativeLoginTest_wrongPassword(UserDTOLombok userDP) {
+//        UserDTOLombok user = UserDTOLombok.builder()
+//                .email("krasleo@gmail.com")
+//                .password("Cristian7777$!")
+//                .build();
 
         logger.info("Test date --> " + user.toString());
-        app.getUserHelper().loginUserDTOLombok(user);
+        app.getUserHelper().loginUserDTOLombok(userDP);
         flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertWrongEmailCorrectPassword());//Wrong email or password
 
     }
 
-    @Test
+    @Test(invocationCount = 2)
     public void negativeLoginTest_WrongEmail_WO_Letters(){
         UserDTOLombok user = UserDTOLombok.builder()
                 .email("123456@7890")
