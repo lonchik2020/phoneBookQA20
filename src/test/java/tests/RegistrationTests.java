@@ -1,6 +1,7 @@
 package tests;
 
 
+import data.DataProviderLogin;
 import dto.UserDTOLombok;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -25,7 +26,7 @@ public class RegistrationTests extends BaseTest{
 
     @Test(groups={"smoke","regression"})
     public void positiveRegistration(){
-        RandomUtils randomUtils = new RandomUtils();
+        //RandomUtils randomUtils = new RandomUtils();
         String email = randomUtils.generateEmail(7);
 
         UserDTOLombok user = UserDTOLombok.builder()
@@ -37,9 +38,18 @@ public class RegistrationTests extends BaseTest{
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
+    @Test(enabled = false, dataProvider = "loginCSV", dataProviderClass = DataProviderLogin.class)
+    public void positiveRegistration(UserDTOLombok userDP){
+        app.getUserHelper().registrationUserDTOLombok(userDP);
+        flagIsUserLogin = true;
+        Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
+    }
+
+
+
     @Test
     public void negativeRegistration_WrongPassword_WO_Symbol(){
-        RandomUtils randomUtils = new RandomUtils();
+        //RandomUtils randomUtils = new RandomUtils();
         String email = randomUtils.generateEmail(7);
 
         UserDTOLombok user = UserDTOLombok.builder()
@@ -50,12 +60,11 @@ public class RegistrationTests extends BaseTest{
         flagIsAlertPresent = true;
         Assert.assertTrue(app.getUserHelper().validateMessageAlertCorrectEmailWrongPasswordReg());
 
-
     }
 
     @Test
     public void negativeRegistration_WrongPassword_WO_Letters(){
-        RandomUtils randomUtils = new RandomUtils();
+        //RandomUtils randomUtils = new RandomUtils();
         String email = randomUtils.generateEmail(7);
         UserDTOLombok user = UserDTOLombok.builder()
                 .email(email)
@@ -69,7 +78,7 @@ public class RegistrationTests extends BaseTest{
 
     @Test
     public void negativeRegistration_WrongPassword_WO_Digits(){
-        RandomUtils randomUtils = new RandomUtils();
+        //RandomUtils randomUtils = new RandomUtils();
         String email = randomUtils.generateEmail(7);
         UserDTOLombok user = UserDTOLombok.builder()
                 .email(email)

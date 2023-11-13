@@ -57,7 +57,8 @@ public class LoginTests extends BaseTest{
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
-    @Test(groups={"regression"}, dataProvider = "positiveDataLogin", dataProviderClass = DataProviderLogin.class)
+    //@Test(groups={"regression"}, dataProvider = "positiveDataLogin", dataProviderClass = DataProviderLogin.class)
+    @Test(dataProvider = "loginCSV", dataProviderClass = DataProviderLogin.class)
     public void positiveLoginUserDTOLombok(Method method, UserDTOLombok userDP){
       long timeStart, timeStop;
 

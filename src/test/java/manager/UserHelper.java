@@ -83,8 +83,7 @@ public class UserHelper extends BaseHelper {
             return false;
         }
     }
-
-
+    
     public void logout() {
         clickBase(btnLogOut);
     }

@@ -19,6 +19,8 @@ public class ApplicationManager {
     EventFiringWebDriver driver;//object which allows to connect listener with web driver
     UserHelper userHelper; //1
 
+    ContactHelper contactHelper;//**1
+
     public ApplicationManager(){//constructor with default browser
         browser = System.getProperty("browser", BrowserType.CHROME);
     }
@@ -41,11 +43,16 @@ public class ApplicationManager {
         driver.register(new WDListener());
 
         userHelper = new UserHelper(driver);//2
+        contactHelper = new ContactHelper(driver);//**2
 
     }
 
      public UserHelper getUserHelper() {//3
          return userHelper;
+    }
+
+    public ContactHelper getContactHelper(){//**3
+        return contactHelper;
     }
 
     public void tearDown(){

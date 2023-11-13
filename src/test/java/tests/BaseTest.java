@@ -6,6 +6,7 @@ import manager.TestNGListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
+import utils.RandomUtils;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -17,8 +18,9 @@ public class BaseTest {//to create here object of applicationManager
     boolean flagIsAlertPresent = false;
     boolean flagIsUserLogin = false;
 
-
     Logger logger = LoggerFactory.getLogger(BaseTest.class);
+
+    RandomUtils randomUtils = new RandomUtils();
 
     static ApplicationManager app = new ApplicationManager();
 
