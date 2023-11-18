@@ -16,6 +16,8 @@ public class ApplicationManager {
 
     Logger logger = LoggerFactory.getLogger(ApplicationManager.class);
     static String browser;
+
+    String url = ConfigProperties.getProperty("url");
     EventFiringWebDriver driver;//object which allows to connect listener with web driver
     UserHelper userHelper; //1
 
@@ -36,8 +38,11 @@ public class ApplicationManager {
             logger.info("started tests in firefox driver");
         }
 
+
         driver.navigate().to(ConfigProperties.getProperty("url"));
-        logger.info("navigated to: " + ConfigProperties.getProperty("url") + "Start testing --> " + LocalDateTime.now());
+        //driver.navigate().to(url);
+        logger.info("navigated to: " + ConfigProperties.getProperty("url"));
+        logger.info("navigated to: " + url);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.register(new WDListener());
@@ -57,18 +62,19 @@ public class ApplicationManager {
 
     public void tearDown(){
         driver.quit();
-        logger.info("Stop testing --> " + LocalDateTime.now());
+        //logger.info("Stop testing --> " + LocalDateTime.now());
     }
 
     public void navigateToMainPage(){
-
-        driver.navigate().to(ConfigProperties.getProperty("url"));
+        //driver.navigate().to(ConfigProperties.getProperty("url"));
+        driver.navigate().to(url);
     }
 
     public boolean isPageUrHome(){
         String urlCurrent = driver.getCurrentUrl();
         System.out.println(urlCurrent + "================== url");
-        return urlCurrent.equals(ConfigProperties.getProperty("url") + " Start testing");
+        //return urlCurrent.equals(ConfigProperties.getProperty("url"));
+        return urlCurrent.equals(url);
         // google - prod
         //preprod.google - pre production
         //qa78.google.com

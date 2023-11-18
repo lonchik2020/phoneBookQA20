@@ -49,7 +49,7 @@ public class LoginTests extends BaseTest{
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
-    @Test
+    @Test(groups={"smoke","regression"})
     public void positiveLoginUserDTOWith(){
         logger.info("Test date --> " + userDTOWith.toString());
         app.getUserHelper().login(userDTOWith);

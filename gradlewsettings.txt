@@ -8,10 +8,5 @@
 ./gradlew clean -Pbrowser=firefox -Dgroups=smoke,regression shortTests
 ./gradlew clean -Dgroups=smoke shortTests
 ./gradlew clean -Dgroups=regression shortTests
-
-
 ./gradlew clean -Dgroups=regression -Ptarget=prod shortTests
 ./gradlew clean -Dgroups=regression -Ptarget=fake shortTests
-
-
-"some str ${name} jdjdnj"

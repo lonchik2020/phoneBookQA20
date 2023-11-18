@@ -12,8 +12,8 @@ public class AddContactTests extends BaseTest{
     public void preconditionsBeforeClass(){
         if(app.isPageUrHome()){
             app.getUserHelper().openLoginPage();
-            app.getUserHelper().loginUserDTOLombok(user);
         }
+        app.getUserHelper().loginUserDTOLombok(user);
     }
 
     @AfterClass(alwaysRun = true)
@@ -24,16 +24,18 @@ public class AddContactTests extends BaseTest{
     @Test
     public void addContactPositive(){
         String phone = randomUtils.generateStringDigits(12);
+        System.out.println("phone for the new contact " + phone);
+       logger.info("phone for the new contact" + phone);
         NewContactDTO newContactDTO = NewContactDTO.builder()
                 .address("tukoty")
                 .description("regege")
-                .email("wefre@mail.ru")
+               .email("wefre@mail.ru")
                 .lastName("serfe")
-                .name("yuki")
+               .name("yuki")
                 .phone(phone)
-                .build();
+               .build();
 
-        app.getContactHelper().addNewContact(NewContactDTO);
-        Assert.assertTrue(app.getContactHelper().validateContactCreated(phone));//comparing by phone!!
+        app.getContactHelper().addNewContact(newContactDTO);
+       Assert.assertTrue(app.getContactHelper().validateContactCreated(phone));//comparing by phone!!
     }
 }

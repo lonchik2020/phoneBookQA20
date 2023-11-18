@@ -3,7 +3,7 @@ package utils;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-import java.io.FileReader;
+
 
 public class ConfigProperties {//all the methods will be static
     static Properties properties = new Properties();

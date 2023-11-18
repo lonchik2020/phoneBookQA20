@@ -89,5 +89,21 @@ public class BaseHelper {
     }
 
 
+    public boolean isElementByTextExistInTheList(By locator,String text) {
+        boolean flag = false;
+        List<WebElement> list = findElementsBase(locator);
+        int size = list.size();
+        if (size == 0) {
+            return false;
+        }
+        for (WebElement webElement : list) {
+            if (webElement.getText().equals(text)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
 
 }
