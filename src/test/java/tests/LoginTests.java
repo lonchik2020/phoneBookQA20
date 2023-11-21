@@ -49,7 +49,7 @@ public class LoginTests extends BaseTest{
         Assert.assertTrue(app.getUserHelper().validateSuccessConfirmationElementAfterLogin());
     }
 
-    @Test(groups={"smoke","regression"})
+    @Test(groups={"regression"})
     public void positiveLoginUserDTOWith(){
         logger.info("Test date --> " + userDTOWith.toString());
         app.getUserHelper().login(userDTOWith);
@@ -82,7 +82,7 @@ public class LoginTests extends BaseTest{
     @Test(groups={"smoke"})
     public void negativeLoginTest_WrongEmail_WO_dot(){
         UserDTOLombok user = UserDTOLombok.builder()
-                .email("krasleo@gmailcom")
+                .username("krasleo@gmailcom")
                 .password("Cristiano7777$!")
                 .build();
 
@@ -110,7 +110,7 @@ public class LoginTests extends BaseTest{
     @Test(invocationCount = 2)
     public void negativeLoginTest_WrongEmail_WO_Letters(){
         UserDTOLombok user = UserDTOLombok.builder()
-                .email("123456@7890")
+                .username("123456@7890")
                 .password("Cristiano7777$!")
                 .build();
 
@@ -124,7 +124,7 @@ public class LoginTests extends BaseTest{
     @Test
     public void negativeLoginTest_WrongEmail_WO_Digits(){
         UserDTOLombok user = UserDTOLombok.builder()
-                .email("werfdth@acbf")
+                .username("werfdth@acbf")
                 .password("Cristiano7777$!")
                 .build();
         app.getUserHelper().loginUserDTOLombok(user);
@@ -135,7 +135,7 @@ public class LoginTests extends BaseTest{
     @Test
     public void negativeLoginTest_WrongPassword_WO_Digits(){
         UserDTOLombok user = UserDTOLombok.builder()
-                .email("krasleo@gmail.com")
+                .username("krasleo@gmail.com")
                 .password("Cristianoreal$!")
                 .build();
         app.getUserHelper().loginUserDTOLombok(user);
@@ -146,7 +146,7 @@ public class LoginTests extends BaseTest{
     @Test
     public void negativeLoginTest_WrongPassword_WO_Letters(){
         UserDTOLombok user = UserDTOLombok.builder()
-                .email("krasleo@gmail.com")
+                .username("krasleo@gmail.com")
                 .password("12345678$!")
                 .build();
         app.getUserHelper().loginUserDTOLombok(user);

@@ -53,14 +53,14 @@ public class UserHelper extends BaseHelper {
     }
 
     public void loginUserDTOLombok(UserDTOLombok user) {
-        typeTextBase(inputEmailLoginForm, user.getEmail());
+        typeTextBase(inputEmailLoginForm, user.getUsername());
         typeTextBase(inputPasswordLoginForm, user.getPassword());
         clickBase(btnLoginForm);
     }
 
     public void registrationUserDTOLombok(UserDTOLombok user) {
         clickBase(btnLoginHeaderMenu);
-        typeTextBase(inputEmailLoginForm, user.getEmail());
+        typeTextBase(inputEmailLoginForm, user.getUsername());
         typeTextBase(inputPasswordLoginForm, user.getPassword());
         jsClickBase(btnRegistration);
     }

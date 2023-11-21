@@ -7,7 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import utils.RandomUtils;
 
 public class RegistrationTests extends BaseTest{
 
@@ -30,7 +29,7 @@ public class RegistrationTests extends BaseTest{
         String email = randomUtils.generateEmail(7);
 
         UserDTOLombok user = UserDTOLombok.builder()
-                .email(email)
+                .username(email)
                 .password("Cristiano7777$!")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);
@@ -53,7 +52,7 @@ public class RegistrationTests extends BaseTest{
         String email = randomUtils.generateEmail(7);
 
         UserDTOLombok user = UserDTOLombok.builder()
-                .email(email)
+                .username(email)
                 .password("Cristiano77777")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);
@@ -62,12 +61,12 @@ public class RegistrationTests extends BaseTest{
 
     }
 
-    @Test
+    @Test(groups={"regression"})
     public void negativeRegistration_WrongPassword_WO_Letters(){
         //RandomUtils randomUtils = new RandomUtils();
         String email = randomUtils.generateEmail(7);
         UserDTOLombok user = UserDTOLombok.builder()
-                .email(email)
+                .username(email)
                 .password("112233477#")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);
@@ -81,7 +80,7 @@ public class RegistrationTests extends BaseTest{
         //RandomUtils randomUtils = new RandomUtils();
         String email = randomUtils.generateEmail(7);
         UserDTOLombok user = UserDTOLombok.builder()
-                .email(email)
+                .username(email)
                 .password("abcdefghijk#")
                 .build();
         app.getUserHelper().registrationUserDTOLombok(user);

@@ -26,7 +26,7 @@ public class BaseTest {//to create here object of applicationManager
 
 
     UserDTOLombok user = UserDTOLombok.builder()
-            .email("krasleo@gmail.com")
+            .username("krasleo@gmail.com")
             .password("Cristiano7777$!")
             .build();
 

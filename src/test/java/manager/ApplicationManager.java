@@ -41,10 +41,10 @@ public class ApplicationManager {
 
         driver.navigate().to(ConfigProperties.getProperty("url"));
         //driver.navigate().to(url);
-        logger.info("navigated to: " + ConfigProperties.getProperty("url"));
+        //logger.info("navigated to: " + ConfigProperties.getProperty("url"));
         logger.info("navigated to: " + url);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.register(new WDListener());
 
         userHelper = new UserHelper(driver);//2
