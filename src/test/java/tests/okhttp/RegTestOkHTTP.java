@@ -7,29 +7,30 @@ import dto.UserDTOLombok;
 import okhttp3.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.RandomUtils;
 
 import java.io.IOException;
 
-public class LoginTestOkHTTP {
+public class RegTestOkHTTP {
+    RandomUtils randomUtils = new RandomUtils();
+    String email = randomUtils.generateEmail(7);
     UserDTOLombok user = UserDTOLombok.builder()
-            .username("krasleo@gmail.com")
+            .username(email)
             .password("Cristiano7777$!")
             .build();
 
     public static final MediaType JSON = MediaType.get("application/json");
-    //means that requests response body will be in json format
     Gson gson = new Gson();
-    //example of gson - library from google that allows us serialization/deserialization our json in java object dto
-    //that we created
     OkHttpClient okHttpClient = new OkHttpClient();
     String baseUrl = "https://contactapp-telran-backend.herokuapp.com";
 
+
     @Test
-    public void loginPositive() {
+    public void regPositive() {
         RequestBody requestBody = RequestBody.create(gson.toJson(user), JSON);
         //body for request - gson for google - we transfer it to JSON
         Request request = new Request.Builder()
-                .url(baseUrl + "/v1/user/login/usernamepassword")
+                .url(baseUrl + "/v1/user/registration/usernamepassword")
                 .post(requestBody)
                 .build();
         //object of request
@@ -63,16 +64,18 @@ public class LoginTestOkHTTP {
 
 
     @Test
-    public void loginNegative() {
-        UserDTOLombok userNegative = UserDTOLombok.builder()
-                .username("krasleo@gmail.com")
-                .password("Cristiano777777")
+    public void regNegativeError400() {
+        UserDTOLombok userNegative1 = UserDTOLombok.builder()
+                .username(email)
+                .password("")
                 .build();
-        RequestBody requestBody = RequestBody.create(gson.toJson(userNegative), JSON);
+
+        RequestBody requestBody = RequestBody.create(gson.toJson(userNegative1), JSON);
         Request request = new Request.Builder()
-                .url(baseUrl + "/v1/user/login/usernamepassword")
+                .url(baseUrl + "/v1/user/registration/usernamepassword")
                 .post(requestBody)
                 .build();
+
         Response response;
         try {
             response = okHttpClient.newCall(request).execute();
@@ -84,6 +87,7 @@ public class LoginTestOkHTTP {
             Assert.fail("got null response");
         } else if (response.isSuccessful()) {//return ok 200 and token
             Assert.fail("got response with status code" + response.code());
+            //String responseJson;
         } else {
             String responseJson;
             try {
@@ -95,10 +99,11 @@ public class LoginTestOkHTTP {
             ErrorDTO errorDTO = gson.fromJson(responseJson, ErrorDTO.class);
             System.out.println(response.code());
             System.out.println(response.message());
-            System.out.println("string error: " + errorDTO.getError());
-            System.out.println("int status: " + errorDTO.getStatus());
-            Assert.assertEquals(response.code(), 401, "response not 401");
+            System.out.println("string error" + errorDTO.getError());
+            System.out.println("int status" + errorDTO.getStatus());
+            Assert.assertEquals(response.code(), 400, "response not 400");
 
         }
     }
+
 }
