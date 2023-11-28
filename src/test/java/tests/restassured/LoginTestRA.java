@@ -1,5 +1,6 @@
 package tests.restassured;
 
+import dto.UserDTOLombok;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,6 +22,18 @@ public class LoginTestRA extends BaseRA {
     @Test
     public void testToken(){
         System.out.println("token" + userApi.getTokenFromLoginResponse(user));
+    }
+
+    @Test
+    public void negativeLogin(){
+        userApi.setResponseLoginNull();
+        UserDTOLombok user1 = UserDTOLombok.builder()//user for local test
+                .username("krasleo@gmail.com")
+                .password("Cristiano777777")
+                .build();
+        int statusCode = userApi.getStatusCodeResponseLogin(user1);
+        userApi.setResponseLoginNull();
+        Assert.assertEquals(statusCode, 401);
     }
 
 }
