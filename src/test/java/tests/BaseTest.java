@@ -1,11 +1,14 @@
 package tests;
 
+import api.ContactsService;
+import api.UserApi;
 import dto.UserDTOLombok;
 import manager.ApplicationManager;
 import manager.TestNGListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import utils.RandomUtils;
 
 import java.lang.reflect.Method;
@@ -30,9 +33,16 @@ public class BaseTest {//to create here object of applicationManager
             .password("Cristiano7777$!")
             .build();
 
+    UserApi userApi = new UserApi();
+    ContactsService contactsService = new ContactsService();
+    String token = "";
+
+    SoftAssert softAssert = new SoftAssert();
+
 
     @BeforeSuite(alwaysRun = true)
     public void setUp(){
+        token = userApi.getTokenFromLoginResponse(user);
         app.init();
     }
 
